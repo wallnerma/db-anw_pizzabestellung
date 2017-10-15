@@ -94,11 +94,11 @@ public class TestKunde {
 
     @Test public void remove ()
     {
-        /*
+
         Kunde gw = manager.find (Kunde.class, nickname);
         assertNotNull (gw);
 
-        Adresse addr = manager.find(Adresse.class, fk_adresse_id);
+        Adresse addr = manager.find(Adresse.class, gw.getAdresse().getId());
         assertNotNull(addr);
 
         transaction.begin ();
@@ -108,11 +108,11 @@ public class TestKunde {
 
         gw = manager.find(Kunde.class, nickname);
         assertNull (gw);
-        addr = manager.find(Adresse.class, fk_adresse_id);
+        addr = manager.find(Adresse.class, 22);
         assertNull(addr);
 
         System.out.println("Removed " + nickname);
-        */
+
     }
 
 }
