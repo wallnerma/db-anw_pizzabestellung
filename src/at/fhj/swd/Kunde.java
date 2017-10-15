@@ -2,31 +2,32 @@ package at.fhj.swd;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity public class Kunde {
 
     @Id private String nickname;
-    private int fk_adresse_id;
+    @OneToOne private Adresse adresse;
     private String nachname;
     private String vorname;
     private String telnummer;
 
     protected Kunde() {}
 
-    public Kunde(String nickname, int fk_adresse_id, String nachname, String vorname, String telnummer) {
-        this.nickname = nickname;
-        this.fk_adresse_id = fk_adresse_id;
-        this.nachname = nachname;
-        this.vorname = vorname;
-        this.telnummer = telnummer;
+    public Kunde(String nickname, Adresse adresse, String nachname, String vorname, String telnummer) {
+        setNickname(nickname);
+        setAdresse(adresse);
+        setNachname(nachname);
+        setVorname(vorname);
+        setTelnummer(telnummer);
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
-    public void setFk_adresse_id(int fk_adresse_id) {
-        this.fk_adresse_id = fk_adresse_id;
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }
 
     public void setNachname(String nachname) {
@@ -45,8 +46,8 @@ import javax.persistence.Id;
         return nickname;
     }
 
-    public int getFk_adresse_id() {
-        return fk_adresse_id;
+    public Adresse getAdresse() {
+        return adresse;
     }
 
     public String getNachname() {

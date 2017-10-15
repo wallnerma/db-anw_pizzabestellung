@@ -21,7 +21,7 @@ public class TestKunde {
     static final String persistenceUnitName = "db_wallner16";
 
     static  final String    nickname        = "terminator";
-    static  final int       fk_adresse_id   = 27;
+    static  final Adresse   adresse         = new Adresse(22, "Max Musterweg", 18, 8600, "Bruck/Mur");
     static  final String    nachname        = "Wresnik";
     static  final String    vorname         = "Georg";
     static  final String    telnummer       = "06601234567";
@@ -50,15 +50,7 @@ public class TestKunde {
     {
         transaction.begin ();
 
-        Adresse addr = new Adresse(fk_adresse_id, "Klosterweg", 16, 8600, "Bruck/Mur");
-
-        assertNotNull (addr);
-        manager.persist (addr);
-        transaction.commit();
-
-        transaction.begin();
-
-        Kunde gw = new Kunde (nickname, fk_adresse_id, nachname, vorname, telnummer);
+        Kunde gw = new Kunde (nickname, adresse, nachname, vorname, telnummer);
 
         assertNotNull (gw);
         manager.persist (gw);
