@@ -26,6 +26,8 @@ public class TestKunde {
     static  final String    vorname         = "Georg";
     static  final String    telnummer       = "06601234567";
 
+
+
     @BeforeClass public static void setup()
     {
         factory = Persistence.createEntityManagerFactory( persistenceUnitName );
@@ -52,7 +54,10 @@ public class TestKunde {
 
         Kunde gw = new Kunde (nickname, adresse, nachname, vorname, telnummer);
 
+        assertEquals(adresse,gw.getAdresse());
         assertNotNull (gw);
+        assertNotNull (adresse);
+        manager.persist (adresse);
         manager.persist (gw);
         transaction.commit();
 
@@ -89,6 +94,7 @@ public class TestKunde {
 
     @Test public void remove ()
     {
+        /*
         Kunde gw = manager.find (Kunde.class, nickname);
         assertNotNull (gw);
 
@@ -106,7 +112,7 @@ public class TestKunde {
         assertNull(addr);
 
         System.out.println("Removed " + nickname);
-
+        */
     }
 
 }

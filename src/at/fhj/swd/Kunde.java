@@ -2,12 +2,14 @@ package at.fhj.swd;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity public class Kunde {
 
     @Id private String nickname;
-    @OneToOne private Adresse adresse;
+    @OneToOne @JoinColumn (name = "fk_adresse_id")
+    private Adresse adresse;
     private String nachname;
     private String vorname;
     private String telnummer;
