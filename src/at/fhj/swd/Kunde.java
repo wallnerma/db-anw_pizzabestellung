@@ -1,9 +1,8 @@
 package at.fhj.swd;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity public class Kunde
 {
@@ -14,6 +13,7 @@ import javax.persistence.OneToOne;
     private String telnummer;
 
     @OneToOne @JoinColumn(name = "fk_adresse_id") private Adresse adresse;
+    @OneToMany (mappedBy = "kunde") private Collection<Bestellung> bestellungen = new ArrayList<Bestellung>();
 
     protected Kunde() {}
 
@@ -52,6 +52,10 @@ import javax.persistence.OneToOne;
         this.telnummer = telnummer;
     }
 
+    public void setBestellungen(Collection<Bestellung> bestellungen) {
+        this.bestellungen = bestellungen;
+    }
+
     public String getNickname()
     {
         return nickname;
@@ -75,6 +79,15 @@ import javax.persistence.OneToOne;
     public String getTelnummer()
     {
         return telnummer;
+    }
+
+    public Collection<Bestellung> getBestellungen() {
+        return bestellungen;
+    }
+
+    public void add(Bestellung bestellung)
+    {
+        bestellungen.add(bestellung);
     }
 
     @Override
