@@ -11,7 +11,8 @@ import        org.junit.AfterClass;
 import        org.junit.Test;
 
 @org.junit.FixMethodOrder( org.junit.runners.MethodSorters.NAME_ASCENDING)
-public class TestAdresse {
+public class AdresseTest
+{
 
     static EntityManagerFactory factory;
     static EntityManager        manager;
