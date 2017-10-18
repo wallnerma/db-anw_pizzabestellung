@@ -87,7 +87,7 @@ public class KundeBestellungTest
 
     }
 
-  /*  @Test public void modify ()
+    @Test public void modify ()
     {
         Kunde john = manager.find (Kunde.class, nickname);
         assertNotNull (john);
@@ -123,10 +123,13 @@ public class KundeBestellungTest
         Adresse johns_adresse = manager.find(Adresse.class, john.getAdresse().getId());
         assertNotNull(johns_adresse);
 
-        ArrayList<Bestellung> order = manager.find(Bestellung.class, john.getBestellungen());
-
         transaction.begin ();
-        manager.remove(order);
+
+        for (Bestellung order : john.getBestellungen())
+        {
+            manager.remove (order);
+        }
+
         manager.remove (john);
         manager.remove(johns_adresse);
         transaction.commit();
@@ -135,12 +138,10 @@ public class KundeBestellungTest
         assertNull (john);
         johns_adresse = manager.find(Adresse.class, 22);
         assertNull(johns_adresse);
-        //order = manager.find(Bestellung.class, "terminator");
-        //assertNull(order);
 
         System.out.println("Removed " + nickname);
 
-    }*/
+    }
 
 
 }
