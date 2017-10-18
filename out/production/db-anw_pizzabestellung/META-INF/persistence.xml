@@ -7,6 +7,7 @@
         <class>at.fhj.swd.Adresse</class>
         <class>at.fhj.swd.Kunde</class>
         <class>at.fhj.swd.Bestellung</class>
+        <class>at.fhj.swd.Pizza</class>
         <properties>
             <!-- The JDBC driver of your database -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

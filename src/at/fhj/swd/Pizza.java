@@ -1,7 +1,6 @@
 package at.fhj.swd;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -9,7 +8,7 @@ import java.util.Collection;
 {
     @Id private int id;
     private String name;
-    private String größe;
+    private String groesse;
     private float einzelpreis;
 
     @ManyToMany @JoinTable ( name = "bestellungpizza", joinColumns = @JoinColumn(name = "fk_pizza_id"),
@@ -17,10 +16,10 @@ import java.util.Collection;
 
     protected Pizza(){}
 
-    public Pizza(int id, String name, String größe, float einzelpreis) {
+    public Pizza(int id, String name, String groesse, float einzelpreis) {
         setId(id);
         setName(name);
-        setGröße(größe);
+        setGroesse(groesse);
         setEinzelpreis(einzelpreis);
     }
 
@@ -40,12 +39,12 @@ import java.util.Collection;
         this.name = name;
     }
 
-    public String getGröße() {
-        return größe;
+    public String getGroesse() {
+        return groesse;
     }
 
-    public void setGröße(String größe) {
-        this.größe = größe;
+    public void setGroesse(String groesse) {
+        this.groesse = groesse;
     }
 
     public float getEinzelpreis() {
@@ -54,6 +53,14 @@ import java.util.Collection;
 
     public void setEinzelpreis(float einzelpreis) {
         this.einzelpreis = einzelpreis;
+    }
+
+    public Collection<Bestellung> getBestellungen() {
+        return bestellungen;
+    }
+
+    public void setBestellungen(Collection<Bestellung> bestellungen) {
+        this.bestellungen = bestellungen;
     }
 
     @Override

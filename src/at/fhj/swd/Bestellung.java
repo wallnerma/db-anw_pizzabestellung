@@ -56,4 +56,16 @@ import java.util.Collection;
         pizzen.add(pizza);
 
     }
+
+    public void setKunde(Kunde kunde) {
+        this.kunde = kunde;
+    }
+
+    public Collection<Pizza> getPizzen() {
+        return pizzen;
+    }
+
+    public void setPizzen(Collection<Pizza> pizzen) {
+        this.pizzen = pizzen;
+    }
 }
