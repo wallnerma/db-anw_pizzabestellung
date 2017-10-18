@@ -1,9 +1,8 @@
 package at.fhj.swd;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity public class Bestellung
 {
@@ -11,6 +10,7 @@ import javax.persistence.ManyToOne;
     private String status;
 
     @ManyToOne @JoinColumn(name = "fk_kunde_nickname") private Kunde kunde;
+    @ManyToMany (mappedBy = "bestellungen") private Collection<Pizza> pizzen = new ArrayList<Pizza>();
 
     protected Bestellung(){}
 
@@ -49,5 +49,11 @@ import javax.persistence.ManyToOne;
     {
         this.kunde = kunde;
         kunde.add(this);
+    }
+
+    public void add(Pizza pizza)
+    {
+        pizzen.add(pizza);
+
     }
 }
