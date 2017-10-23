@@ -155,8 +155,16 @@ public class PizzaBestellungTest
 
         for (Bestellung order : john.getBestellungen())
         {
+
+            for(Pizza pizza : order.getPizzen())
+            {
+                manager.remove(pizza);
+            }
+
             manager.remove (order);
         }
+
+
 
         manager.remove (john);
         manager.remove(johns_adresse);
