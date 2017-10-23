@@ -65,7 +65,6 @@ CREATE TABLE "pizzazutaten"(
 	fk_zutaten_id INT
 );
 
-
 /*	Teil 2	*/
 /* Add Primary Keys */
 
@@ -95,3 +94,12 @@ Alter Table "bestellungpizza" Add Constraint fk_bestellung_id Foreign Key (fk_be
 
 Alter Table "pizzazutaten" Add Constraint fk_pizza_id Foreign Key (fk_pizza_id) References "pizza" (id);
 Alter Table "pizzazutaten" Add Constraint fk_zutaten_id Foreign Key (fk_zutaten_id) References "zutaten" (id);
+
+/*	Teil 4	*/
+/* Create and Add Sequence */
+
+CREATE SEQUENCE bestellungpizza_sequence
+  start 1
+  increment 1;
+
+ALTER TABLE bestellungpizza ALTER COLUMN id SET DEFAULT nextval('bestellungpizza_sequence');
