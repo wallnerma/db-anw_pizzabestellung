@@ -1,4 +1,4 @@
-package at.fhj.swd;
+package at.fhj.swd.pizzabestellung;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

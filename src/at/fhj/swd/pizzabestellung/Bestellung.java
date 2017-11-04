@@ -1,4 +1,4 @@
-package at.fhj.swd;
+package at.fhj.swd.pizzabestellung;
 
 import javax.persistence.*;
 import java.util.ArrayList;

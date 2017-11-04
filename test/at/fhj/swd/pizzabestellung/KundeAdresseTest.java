@@ -1,4 +1,4 @@
-package at.fhj.swd;
+package at.fhj.swd.pizzabestellung;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,14 +10,10 @@ import        org.junit.BeforeClass;
 import        org.junit.AfterClass;
 import        org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
-public class KundeBestellungTest
+public class KundeAdresseTest
 {
+
     static EntityManagerFactory factory;
     static EntityManager        manager;
     static EntityTransaction    transaction;
@@ -30,10 +26,6 @@ public class KundeBestellungTest
     static  final String    vorname         = "John";
     static  final String    telnummer       = "06601234567";
 
-    static final int id1 = 23;
-    static final int id2 = 24;
-    static final String status1 = "in Arbeit";
-    static final String status2 = "aufgenommen";
 
     @BeforeClass public static void setup()
     {
@@ -54,33 +46,19 @@ public class KundeBestellungTest
         factory.close();
     }
 
+
     @Test public void create()
     {
         transaction.begin ();
 
         Kunde john = new Kunde (nickname, johns_adresse, nachname, vorname, telnummer);
-        Bestellung order1 = new Bestellung(id1, status1);
-        Bestellung order2 = new Bestellung(id2, status2);
 
-        order1.set(john);
-        order2.set(john);
-
-
-        assertEquals(order1.getKunde(), john);
-        assertEquals(order2.getKunde(), john);
-
-        assertTrue(john.getBestellungen().contains(order1));
-        assertTrue(john.getBestellungen().contains(order2));
-
+        assertEquals(johns_adresse, john.getAdresse());
+        assertEquals(john, johns_adresse.getKunde());
         assertNotNull (john);
-        assertNotNull(order1);
-        assertNotNull(order2);
-
+        assertNotNull (johns_adresse);
         manager.persist (johns_adresse);
         manager.persist (john);
-        manager.persist (order1);
-        manager.persist (order2);
-
         transaction.commit();
 
         System.out.println("Created and Persisted " + john);
@@ -117,31 +95,24 @@ public class KundeBestellungTest
     @Test public void remove ()
     {
 
-        Kunde john = manager.find (Kunde.class, nickname);
-        assertNotNull (john);
+        Kunde will = manager.find (Kunde.class, nickname);
+        assertNotNull (will);
 
-        Adresse johns_adresse = manager.find(Adresse.class, john.getAdresse().getId());
-        assertNotNull(johns_adresse);
+        Adresse wills_adresse = manager.find(Adresse.class, will.getAdresse().getId());
+        assertNotNull(wills_adresse);
 
         transaction.begin ();
-
-        for (Bestellung order : john.getBestellungen())
-        {
-            manager.remove (order);
-        }
-
-        manager.remove (john);
-        manager.remove(johns_adresse);
+        manager.remove (will);
+        manager.remove(wills_adresse);
         transaction.commit();
 
-        john = manager.find(Kunde.class, nickname);
-        assertNull (john);
-        johns_adresse = manager.find(Adresse.class, 22);
-        assertNull(johns_adresse);
+        will = manager.find(Kunde.class, nickname);
+        assertNull (will);
+        wills_adresse = manager.find(Adresse.class, 22);
+        assertNull(wills_adresse);
 
         System.out.println("Removed " + nickname);
 
     }
-
 
 }
