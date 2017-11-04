@@ -26,7 +26,7 @@ import java.util.Collection;
         setTelnummer(telnummer);
     }
 
-    public void setNickname(String nickname)
+    private void setNickname(String nickname)
     {
         this.nickname = nickname;
     }
@@ -85,7 +85,7 @@ import java.util.Collection;
         return bestellungen;
     }
 
-    public void add(Bestellung bestellung)
+    void add(Bestellung bestellung)
     {
         bestellungen.add(bestellung);
     }

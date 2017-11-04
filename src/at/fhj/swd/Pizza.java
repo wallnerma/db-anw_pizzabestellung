@@ -27,7 +27,7 @@ import java.util.Collection;
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 

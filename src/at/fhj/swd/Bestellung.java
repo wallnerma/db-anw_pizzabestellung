@@ -25,7 +25,7 @@ import java.util.Collection;
         return id;
     }
 
-    public void setId(int id)
+    private void setId(int id)
     {
         this.id = id;
     }
@@ -51,7 +51,7 @@ import java.util.Collection;
         kunde.add(this);
     }
 
-    public void add(Pizza pizza)
+    void add(Pizza pizza)
     {
         pizzen.add(pizza);
 

@@ -24,9 +24,10 @@ import javax.persistence.OneToOne;
         setHausnummer(hausnummer);
         setPlz(plz);
         setOrt(ort);
+        setKunde(kunde);
     }
 
-    public void setId(int id)
+    private void setId(int id)
     {
         this.id = id;
     }
@@ -51,7 +52,7 @@ import javax.persistence.OneToOne;
         this.ort = ort;
     }
 
-    public void setKunde(Kunde kunde)
+    void setKunde(Kunde kunde)
     {
         this.kunde = kunde;
     }

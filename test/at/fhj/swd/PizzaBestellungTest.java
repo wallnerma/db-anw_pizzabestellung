@@ -69,8 +69,6 @@ public class PizzaBestellungTest
         Pizza salami = new Pizza(idPizza1, name1, groesse1,einzelpreis1);
         Pizza tonno = new Pizza(idPizza2, name2, groesse2,einzelpreis2);
 
-        //order1.add(salami);
-        //order2.add(tonno);
 
         order1.set(john);
         order2.set(john);
@@ -78,7 +76,23 @@ public class PizzaBestellungTest
         salami.add(order1);
         tonno.add(order2);
 
-        //Call: INSERT INTO bestellungpizza (fk_bestellung_id, fk_pizza_id) VALUES (?, ?)
+        manager.persist (johns_adresse);
+        manager.persist (john);
+        manager.persist (order1);
+        manager.persist (order2);
+        manager.persist(salami);
+        manager.persist(tonno);
+
+        transaction.commit();
+
+        teardown ();
+        setup    ();
+
+        john = manager.find(Kunde.class, nickname);
+        order1 = manager.find(Bestellung.class, id1);
+        order2 = manager.find(Bestellung.class, id2);
+        salami = manager.find(Pizza.class, idPizza1);
+        tonno = manager.find(Pizza.class, idPizza2);
 
         assertFalse(order1.getPizzen().contains(tonno));
         assertFalse(order2.getPizzen().contains(salami));
@@ -101,15 +115,6 @@ public class PizzaBestellungTest
         assertNotNull (john);
         assertNotNull(order1);
         assertNotNull(order2);
-
-        manager.persist (johns_adresse);
-        manager.persist (john);
-        manager.persist (order1);
-        manager.persist (order2);
-        manager.persist(salami);
-        manager.persist(tonno);
-
-        transaction.commit();
 
         System.out.println("Created and Persisted " + john);
 
