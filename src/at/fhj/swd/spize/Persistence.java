@@ -1,4 +1,4 @@
-package at.fhj.swd.spize.persistence;
+package at.fhj.swd.spize;
 
 import java.util.Map;
 import java.util.HashMap;

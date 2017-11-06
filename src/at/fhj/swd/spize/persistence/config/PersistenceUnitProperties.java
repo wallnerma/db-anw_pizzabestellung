@@ -1,26 +1,30 @@
-
 package at.fhj.swd.spize.persistence.config;
 
-import java.util.MissingResourceException;
+/*
+ * project    jpa+
+ * subproject common
+*/
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
+        import java.util.MissingResourceException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
+        import javax.xml.parsers.DocumentBuilderFactory;
+        import javax.xml.parsers.DocumentBuilder;
+        import javax.xml.parsers.ParserConfigurationException;
 
-import java.io.InputStream;
-import java.io.IOException;
+        import org.w3c.dom.Document;
+        import org.w3c.dom.NodeList;
+        import org.w3c.dom.Node;
+        import org.w3c.dom.Element;
+        import org.xml.sax.SAXException;
+
+        import java.io.InputStream;
+        import java.io.IOException;
 
 /** restriction : persistence.xml may contain ONE PersistenceUnit only :-( !
  * refactoring : retrieving a property from an XML file may throw three
  *               checked exceptions (SAXException, ParserConfigurationException, IOException).
- *               In accordance with JPA philosphy we convert those to just one
- *               unchecked exception (MissingResourceException).
+ *               In accordance with JPA philosphy we convert thos to just one
+ *               unchecked excption (MissingResourceException).
  */
 public class PersistenceUnitProperties
 {

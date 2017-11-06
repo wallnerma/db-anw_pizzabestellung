@@ -2,88 +2,21 @@
 
 package at.fhj.swd.persistence;
 
-import java.util.Map;
-import java.util.HashMap;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 
-public class Persistence
+public class Persistence extends at.fhj.swd.spize.Persistence
 {
 
-    private static EntityManager            em = null;
-    private static EntityManagerFactory     emf= null;
+    public static final String persistenceUnit = "db_wallner16";
 
-    private static boolean debugMode = true;
 
-    public static EntityManager connect (String persistenceUnit)
+    public static EntityManager connect ()
     {
-        if (emf == null)
-        {
-            emf = javax.persistence.Persistence.createEntityManagerFactory (persistenceUnit);
-
-            em  = emf.createEntityManager();
-        }
-
-        return em;
+        return connect (persistenceUnit);
     }
 
-    public static EntityManager connect (String persistenceUnit
-            ,String user, String password)
+    public static EntityManager connect (String user, String password)
     {
-        if (emf == null)
-        {
-
-            if (debugMode) System.out.println ("Connecting as user " + user );
-
-            Map<String, String> props = new HashMap<String, String>();
-
-            props.put ("javax.persistence.jdbc.user",     user);
-            props.put ("javax.persistence.jdbc.password", password);
-
-            emf = javax.persistence.Persistence.createEntityManagerFactory
-                    (persistenceUnit, props);
-
-            em  = emf.createEntityManager();
-        }
-
-        return em;
+        return connect (persistenceUnit, user, password);
     }
-
-    public static EntityManager getEntityManager ()
-    {
-        return em;
-    }
-
-    public static EntityManagerFactory getEntityManagerFactory ()
-    {
-        return emf;
-    }
-
-    public static EntityTransaction getTransaction()
-    {
-        return em.getTransaction();
-    }
-
-
-    public static void close ()
-    {
-        if (em  != null) { em. close(); em  = null; }
-        if (emf != null) { emf.close(); emf = null; }
-    }
-
-    public static void resetTable ( String schema, String table )
-    {
-        em.createNativeQuery (
-                "DELETE FROM " + schema + "." + table).executeUpdate();
-    }
-
-    public static void resetSequence ( String schema, String sequence )
-    {
-        em.createNativeQuery (
-                "ALTER SEQUENCE " + schema + "." + sequence + " RESTART").executeUpdate();
-    }
-
-
 }

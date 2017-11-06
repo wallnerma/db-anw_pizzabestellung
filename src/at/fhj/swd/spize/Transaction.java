@@ -1,4 +1,4 @@
-package at.fhj.swd.spize.persistence;
+package at.fhj.swd.spize;
 
 public class Transaction
 {
