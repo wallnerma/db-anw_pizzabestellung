@@ -23,5 +23,4 @@ public class AdresseRepository extends at.fhj.swd.persistence.Repository<Adresse
 
     static final String schema = "public";
     static final String table = "adresse";
-
 }

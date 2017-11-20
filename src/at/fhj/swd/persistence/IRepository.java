@@ -7,7 +7,7 @@ public interface IRepository<T>
 
     T find (int id);
 
-    List<T> findAll();
+    List<T> findAll(String primaryKey);
 
 }
 

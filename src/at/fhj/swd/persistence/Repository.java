@@ -36,20 +36,22 @@ public abstract class Repository<T>
     }
 
 
-    public List<T> findAll() {
+    public List<T> findAll(String primaryKey) {
         TypedQuery<T> query = entityManager.createQuery (
                 "SELECT entity FROM "
                         + entityClass.getTypeName() + " entity"
-                        + " ORDER BY entity.id"
+                        + " ORDER BY entity." + primaryKey
                 ,entityClass);
 
         return query.getResultList();
     }
 
 
-    public void printAll ()
+
+
+    public void printAll (String primaryKey)
     {
-        List<T> entities = findAll();
+        List<T> entities = findAll(primaryKey);
 
         System.out.println ("All " + entityClass.getTypeName() + "s   -------------------------------");
 
