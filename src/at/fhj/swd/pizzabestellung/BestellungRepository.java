@@ -17,9 +17,11 @@ public class BestellungRepository extends at.fhj.swd.persistence.Repository<Best
 
     void reset()
     {
+        Persistence.resetTable(schema, junctionTable);
         Persistence.resetTable(schema, table);
     }
 
     static final String schema = "public";
     static final String table = "bestellung";
+    static final String junctionTable = "bestellungpizza";
 }

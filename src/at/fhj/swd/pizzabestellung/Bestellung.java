@@ -54,7 +54,6 @@ import java.util.Collection;
     void add(Pizza pizza)
     {
         pizzen.add(pizza);
-
     }
 
     public void setKunde(Kunde kunde) {

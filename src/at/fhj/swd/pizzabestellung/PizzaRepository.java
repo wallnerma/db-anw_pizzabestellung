@@ -17,9 +17,11 @@ public class PizzaRepository extends at.fhj.swd.persistence.Repository<Pizza>
 
     void reset()
     {
+        Persistence.resetTable(schema, junctionTable);
         Persistence.resetTable(schema, table);
     }
 
     static final String schema = "public";
     static final String table = "pizza";
+    static final String junctionTable = BestellungRepository.junctionTable;
 }

@@ -83,6 +83,4 @@ import java.util.Collection;
         bestellungen.add(bestellung);
         bestellung.add(this);
     }
-
-    //TODO toString()
 }

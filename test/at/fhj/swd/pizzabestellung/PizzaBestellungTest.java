@@ -160,12 +160,10 @@ public class PizzaBestellungTest
 
         for (Bestellung order : john.getBestellungen())
         {
-
             for(Pizza pizza : order.getPizzen())
             {
                 manager.remove(pizza);
             }
-
             manager.remove (order);
         }
 
@@ -176,7 +174,7 @@ public class PizzaBestellungTest
         transaction.commit();
 
         john = manager.find(Kunde.class, nickname);
-        assertNull (john);
+        assertNull(john);
         johns_adresse = manager.find(Adresse.class, 22);
         assertNull(johns_adresse);
 
