@@ -142,7 +142,16 @@ public class KundeBestellungTestRepo {
     }
 
     @Test
-    public void d_remove (){
+    public void d_queries() {
+
+        System.out.println("\n--------findTelNumber---------");
+        String telNumber = kundeRepository.findTelNumber(vorname, nachname);
+
+        assertEquals(telnummer, telNumber);
+    }
+
+    @Test
+    public void e_remove (){
 
         Transaction.begin();
         bestellungRepository.reset();

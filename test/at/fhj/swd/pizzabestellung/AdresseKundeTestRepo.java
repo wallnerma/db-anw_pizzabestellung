@@ -98,7 +98,7 @@ public class AdresseKundeTestRepo {
 
     @Test
     public void c_queries() {
-        System.out.println("--------findAllAdressen---------");
+        System.out.println("\n--------findAllAdressen---------");
         List<Adresse> adressen = adresseRepository.findAllAdressen();
         assertEquals(1,adressen.size());
 
@@ -106,7 +106,7 @@ public class AdresseKundeTestRepo {
             System.out.println("Found " + addr);
         }
 
-        System.out.println("--------findSamePlz---------");
+        System.out.println("\n--------findSamePlz---------");
         List<Adresse> samePlz = adresseRepository.findSamePlz(plz);
         assertEquals(1, adressen.size());
 

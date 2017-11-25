@@ -1,6 +1,10 @@
 package at.fhj.swd.pizzabestellung;
 
 import at.fhj.swd.spize.Persistence;
+
+import javax.persistence.TypedQuery;
+import java.util.List;
+
 public class KundeRepository extends at.fhj.swd.persistence.Repository<Kunde>
         implements at.fhj.swd.persistence.IRepository<Kunde>
 {
@@ -13,6 +17,16 @@ public class KundeRepository extends at.fhj.swd.persistence.Repository<Kunde>
         entityManager.persist(kunde);
 
         return kunde;
+    }
+
+    public String findTelNumber(String firstName, String lastName) {
+        TypedQuery<String> query = entityManager.createNamedQuery (
+                "Kunde.findTelNumber"
+                ,String.class );
+        query.setParameter("firstName", firstName);
+        query.setParameter("lastName", lastName);
+
+        return query.getSingleResult();
     }
 
     void reset()

@@ -4,7 +4,19 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Entity public class Kunde
+@Entity
+
+@NamedQueries({
+
+        @NamedQuery(name="Kunde.findTelNumber",
+                query = "SELECT k.telnummer " +
+                        "FROM Kunde k " +
+                        "WHERE  k.vorname = :firstName" +
+                        " AND  k.nachname  = :lastName")
+
+})
+
+public class Kunde
 {
 
     @Id private String nickname;
