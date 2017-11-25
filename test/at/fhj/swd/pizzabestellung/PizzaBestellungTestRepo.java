@@ -78,7 +78,7 @@ public class PizzaBestellungTestRepo {
     @AfterClass
     public static void teardown() { Persistence.close();}
 
-    @Test public void create () {
+    @Test public void a_create () {
         Transaction.begin();
 
         adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
@@ -110,7 +110,7 @@ public class PizzaBestellungTestRepo {
         }
     }
 
-    @Test public void join()
+    @Test public void b_join()
     {
         Transaction.begin();
 
@@ -123,7 +123,7 @@ public class PizzaBestellungTestRepo {
         Transaction.commit();
     }
 
-    @Test public void verify ()
+    @Test public void c_verify ()
     {
         if (verbose) bestellungRepository.printAll("id");
         if (verbose) pizzaRepository.printAll("id");
@@ -192,5 +192,29 @@ public class PizzaBestellungTestRepo {
 
         if (verbose) for (Pizza pizza : pizzen)
             System.out.println("Found " + pizza);
+    }
+
+    @Test
+    public void d_remove (){
+
+        Transaction.begin();
+        pizzaRepository.reset();
+        bestellungRepository.reset();
+        kundeRepository.reset();
+        adresseRepository.reset();
+        Transaction.commit();
+
+        List<Adresse> adresses = adresseRepository.findAll("id");
+        assertEquals(0,adresses.size());
+
+        List<Kunde> kunden = kundeRepository.findAll("nickname");
+        assertEquals(0,kunden.size());
+
+        List<Bestellung> bestellungen = bestellungRepository.findAll("id");
+        assertEquals(0,bestellungen.size());
+
+        List<Pizza> pizzen = pizzaRepository.findAll("id");
+        assertEquals(0, pizzen.size());
+
     }
 }

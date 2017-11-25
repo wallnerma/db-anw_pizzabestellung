@@ -17,15 +17,15 @@ public class AdresseKundeTestRepo {
 
     static final boolean verbose = true;
 
-    static final int id = 158;
-    static final String strasse = "Heimsiedlung";
-    static final int hausnummer = 21;
+    static final int id = 10;
+    static final String strasse = "Werk VI Straße";
+    static final int hausnummer = 7;
     static final int plz = 8605;
     static final String ort = "Kapfenberg";
 
-    static  final String    nickname        = "terminator";
-    static  final String    nachname        = "Miller";
-    static  final String    vorname         = "John";
+    static  final String    nickname        = "deadpool";
+    static  final String    nachname        = "Wilson";
+    static  final String    vorname         = "Wade";
     static  final String    telnummer       = "06601234567";
 
     static AdresseRepository adresseRepository;
@@ -48,7 +48,7 @@ public class AdresseKundeTestRepo {
     @AfterClass
     public static void teardown() { Persistence.close();}
 
-    @Test public void create () {
+    @Test public void a_create () {
         Transaction.begin();
 
         adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
@@ -66,7 +66,7 @@ public class AdresseKundeTestRepo {
         }
     }
 
-    @Test public void verify ()
+    @Test public void b_verify ()
     {
         // Adresse --------------------------------------
 
@@ -94,5 +94,21 @@ public class AdresseKundeTestRepo {
             System.out.println("Found " + customer);
 
         assertEquals(adresse, kunde.getAdresse());
+    }
+
+    @Test
+    public void d_remove (){
+
+        Transaction.begin();
+        kundeRepository.reset();
+        adresseRepository.reset();
+        Transaction.commit();
+
+        List<Adresse> adresses = adresseRepository.findAll("id");
+        assertEquals(0,adresses.size());
+
+        List<Kunde> kunden = kundeRepository.findAll("nickname");
+        assertEquals(0,kunden.size());
+
     }
 }
