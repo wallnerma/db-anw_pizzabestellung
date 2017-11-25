@@ -20,13 +20,22 @@ public class AdresseRepository extends at.fhj.swd.persistence.Repository<Adresse
         return adresse;
     }
 
-    public List<Adresse> samePlace(String plz) {
-        final String queryText =
-                "SELECT a FROM Adresse a " +
-                        "WHERE a.plz = :plz";
-        TypedQuery<Adresse> query = entityManager.createQuery (
-                queryText
+    public List<Adresse> findAllAdressen()
+    {
+
+        TypedQuery<Adresse> query = entityManager.createNamedQuery (
+                "Adresse.findAllAdressen"
                 ,Adresse.class );
+
+        //query.setParameter("projectName", projectName);
+        return query.getResultList ();
+    }
+
+    public List<Adresse> findSamePlz(int plz) {
+        TypedQuery<Adresse> query = entityManager.createNamedQuery (
+                "Adresse.findSamePlz"
+                ,Adresse.class );
+        query.setParameter("plz", plz);
 
         return query.getResultList();
     }

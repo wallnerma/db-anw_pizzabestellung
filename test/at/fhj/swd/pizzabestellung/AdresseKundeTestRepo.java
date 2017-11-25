@@ -70,17 +70,17 @@ public class AdresseKundeTestRepo {
     {
         // Adresse --------------------------------------
 
-        List<Adresse> adresses = adresseRepository.findAll("id");
-        assertEquals(1,adresses.size());
+        List<Adresse> adressen = adresseRepository.findAll("id");
+        assertEquals(1,adressen.size());
 
         adresse = adresseRepository.find(id);
         assertNotNull(adresse);
 
-        assertEquals(adresse, adresses.get(0));
+        assertEquals(adresse, adressen.get(0));
 
         assertEquals (kunde, adresse.getKunde() );
 
-        if (verbose) for (Adresse ad : adresses)
+        if (verbose) for (Adresse ad : adressen)
             System.out.println("Found " + ad);
 
         // Kunde --------------------------------------
@@ -94,6 +94,25 @@ public class AdresseKundeTestRepo {
             System.out.println("Found " + customer);
 
         assertEquals(adresse, kunde.getAdresse());
+    }
+
+    @Test
+    public void c_queries() {
+        System.out.println("--------findAllAdressen---------");
+        List<Adresse> adressen = adresseRepository.findAllAdressen();
+        assertEquals(1,adressen.size());
+
+        for(Adresse addr : adressen) {
+            System.out.println("Found " + addr);
+        }
+
+        System.out.println("--------findSamePlz---------");
+        List<Adresse> samePlz = adresseRepository.findSamePlz(plz);
+        assertEquals(1, adressen.size());
+
+        for(Adresse addr : samePlz) {
+            System.out.println("Found " + addr);
+        }
     }
 
     @Test

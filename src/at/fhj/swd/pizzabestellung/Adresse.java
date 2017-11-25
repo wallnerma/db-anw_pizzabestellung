@@ -1,10 +1,21 @@
 package at.fhj.swd.pizzabestellung;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
-@Entity public class Adresse
+@Entity
+
+@NamedQueries({
+        @NamedQuery(name = "Adresse.findAllAdressen",
+                query = "SELECT a " +
+                        "FROM Adresse a"),
+
+        @NamedQuery(name="Adresse.findSamePlz",
+                query = "SELECT a  " +
+                        "FROM Adresse a " +
+                        "WHERE a.plz = :plz " )
+})
+
+public class Adresse
 {
 
     @Id private int id;
@@ -14,6 +25,10 @@ import javax.persistence.OneToOne;
     private String ort;
 
     @OneToOne (mappedBy = "adresse") private Kunde kunde;
+
+
+
+
 
     protected Adresse(){}
 
