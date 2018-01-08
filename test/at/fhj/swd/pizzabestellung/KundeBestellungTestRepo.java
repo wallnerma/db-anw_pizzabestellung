@@ -151,16 +151,16 @@ public class KundeBestellungTestRepo {
 
         System.out.println("Found " + telNumber + "\n");
 
-//        System.out.println("\n--------findStatusOfCustomer---------");
-//        List<Bestellung> customerStati = bestellungRepository.findStatusOfCustomer(nickname);
-//        assertEquals(2, customerStati.size());
-//
-//        assertEquals(status1, customerStati.get(0).getStatus());
-//        assertEquals(status2, customerStati.get(1).getStatus());
-//
-//        for(Bestellung order : customerStati) {
-//            System.out.println("Found " + order);
-//        }
+        System.out.println("\n--------findStatusOfCustomer---------");
+        List<Bestellung> customerStati = bestellungRepository.findStatusOfCustomer(nickname);
+        assertEquals(2, customerStati.size());
+
+        assertEquals(status1, customerStati.get(0).getStatus());
+        assertEquals(status2, customerStati.get(1).getStatus());
+
+        for(Bestellung order : customerStati) {
+            System.out.println("Found " + order);
+        }
 
     }
 

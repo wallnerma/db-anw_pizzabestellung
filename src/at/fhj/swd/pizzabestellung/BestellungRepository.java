@@ -19,14 +19,14 @@ public class BestellungRepository extends at.fhj.swd.persistence.Repository<Best
         return bestellung;
     }
 
-//    public List<Bestellung> findStatusOfCustomer(String nickname) {
-//        TypedQuery<Bestellung> query = entityManager.createNamedQuery (
-//                "Bestellung.findStatusOfCustomer"
-//                ,Bestellung.class );
-//        query.setParameter("nickname", nickname);
-//
-//        return query.getResultList();
-//    }
+    public List<Bestellung> findStatusOfCustomer(String nickname) {
+        TypedQuery<Bestellung> query = entityManager.createNamedQuery (
+                "Bestellung.findStatusOfCustomer"
+                ,Bestellung.class );
+        query.setParameter("nickname", nickname);
+
+        return query.getResultList();
+    }
 
     void reset()
     {

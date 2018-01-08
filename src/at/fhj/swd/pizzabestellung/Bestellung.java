@@ -6,15 +6,15 @@ import java.util.Collection;
 
 @Entity
 
-//@NamedQueries({
-//        @NamedQuery(name = "Bestellung.findStatusOfCustomer",
-//                query = "SELECT b " +
-//                        "FROM Bestellung b " +
-//                        "JOIN Kunde k " +
+@NamedQueries({
+        @NamedQuery(name = "Bestellung.findStatusOfCustomer",
+                query = "SELECT b " +
+                        "FROM Bestellung b " +
+                        "JOIN Kunde k " +
 //                        "ON b.fk_kunde_nickname = k.nickname " +
-//                        "WHERE k.nickname = :nickname")
-//
-//})
+                        "WHERE k.nickname = :nickname")
+
+})
 
 public class Bestellung
 {
