@@ -11,8 +11,21 @@ import java.util.Collection;
         @NamedQuery(name="Kunde.findTelNumber",
                 query = "SELECT k.telnummer " +
                         "FROM Kunde k " +
-                        "WHERE  k.vorname = :firstName" +
-                        " AND  k.nachname  = :lastName")
+                        "WHERE  k.vorname = :firstName " +
+                        "AND  k.nachname  = :lastName"),
+
+//        @NamedQuery(name="Kunde.findAllCustomersWithAdress",
+//                query = "SELECT k.vorname, k.nachname, a.strasse, a.hausnummer " +
+//                        "FROM Kunde k " +
+//                        "JOIN  Adresse a " +
+//                        "ON k.fk_adresse_id = a.id")
+
+        @NamedQuery(name="Kunde.findAllCustomersWithSamePlz",
+                query = "SELECT k.vorname, k.nachname " +
+                        "FROM Kunde k " +
+                        "JOIN  Adresse a " +
+                        "ON k.fk_adresse_id = a.id " +
+                        "WHERE a.plz = :plz")
 
 })
 

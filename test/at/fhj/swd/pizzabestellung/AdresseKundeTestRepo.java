@@ -108,11 +108,23 @@ public class AdresseKundeTestRepo {
 
         System.out.println("\n--------findSamePlz---------");
         List<Adresse> samePlz = adresseRepository.findSamePlz(plz);
-        assertEquals(1, adressen.size());
+        assertEquals(1, samePlz.size());
 
         for(Adresse addr : samePlz) {
             System.out.println("Found " + addr);
         }
+
+        System.out.println("\n--------findAllCustomersWithSamePlz---------");
+        List<Kunde> customersWithSamePlz = kundeRepository.findAllCustomersWithSamePlz(plz);
+        assertEquals(1, customersWithSamePlz.size());
+
+        assertEquals(vorname, customersWithSamePlz.get(0).getVorname());
+        assertEquals(nachname, customersWithSamePlz.get(0).getNachname());
+
+        for(Kunde customer : customersWithSamePlz) {
+            System.out.println("Found " + customer);
+        }
+
     }
 
     @Test

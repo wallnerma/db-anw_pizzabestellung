@@ -1,6 +1,10 @@
 package at.fhj.swd.pizzabestellung;
 
 import at.fhj.swd.spize.Persistence;
+
+import javax.persistence.TypedQuery;
+import java.util.List;
+
 public class BestellungRepository extends at.fhj.swd.persistence.Repository<Bestellung>
         implements at.fhj.swd.persistence.IRepository<Bestellung>
 {
@@ -14,6 +18,15 @@ public class BestellungRepository extends at.fhj.swd.persistence.Repository<Best
 
         return bestellung;
     }
+
+//    public List<Bestellung> findStatusOfCustomer(String nickname) {
+//        TypedQuery<Bestellung> query = entityManager.createNamedQuery (
+//                "Bestellung.findStatusOfCustomer"
+//                ,Bestellung.class );
+//        query.setParameter("nickname", nickname);
+//
+//        return query.getResultList();
+//    }
 
     void reset()
     {

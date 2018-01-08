@@ -29,6 +29,16 @@ public class KundeRepository extends at.fhj.swd.persistence.Repository<Kunde>
         return query.getSingleResult();
     }
 
+    public List<Kunde> findAllCustomersWithSamePlz(int plz) {
+        TypedQuery<Kunde> query = entityManager.createNamedQuery (
+                "Kunde.findAllCustomersWithSamePlz"
+                ,Kunde.class );
+        query.setParameter("plz", plz);
+
+        return query.getResultList();
+    }
+
+
     void reset()
     {
         Persistence.resetTable(schema, table);

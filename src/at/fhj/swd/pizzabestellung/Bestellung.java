@@ -4,7 +4,19 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Entity public class Bestellung
+@Entity
+
+//@NamedQueries({
+//        @NamedQuery(name = "Bestellung.findStatusOfCustomer",
+//                query = "SELECT b " +
+//                        "FROM Bestellung b " +
+//                        "JOIN Kunde k " +
+//                        "ON b.fk_kunde_nickname = k.nickname " +
+//                        "WHERE k.nickname = :nickname")
+//
+//})
+
+public class Bestellung
 {
     @Id private int id;
     private String status;
