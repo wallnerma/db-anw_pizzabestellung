@@ -194,22 +194,17 @@ public class PizzaBestellungTestRepo {
             System.out.println("Found " + pizza);
     }
 
-    @Test
+/*    @Test
     public void d_queries()
     {
 
         System.out.println("\n--------findAllPizzasFromOrderId---------");
-        List<Pizza> pizzasFromOrderId = pizzaRepository.findAllPizzasFromOrderId(id2);
-        assertEquals(1, pizzasFromOrderId.size());
+        List<Pizza> pizzasFromOrderId1 = pizzaRepository.findAllPizzasFromOrderId(id1);
+        assertEquals(1, pizzasFromOrderId1.size());
 
-//        assertEquals(vorname, customersWithSamePlz.get(0).getVorname());
-//        assertEquals(nachname, customersWithSamePlz.get(0).getNachname());
-//
-//        for(Kunde customer : customersWithSamePlz) {
-//            System.out.println("Found " + customer);
-//        }
+        assertEquals(name1, pizzasFromOrderId1.get(0).getName());
 
-    }
+    }*/
 
     @Test
     public void e_remove ()

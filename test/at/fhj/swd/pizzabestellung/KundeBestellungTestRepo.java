@@ -155,11 +155,29 @@ public class KundeBestellungTestRepo {
         List<Bestellung> customerStati = bestellungRepository.findStatusOfCustomer(nickname);
         assertEquals(2, customerStati.size());
 
+        System.out.println(customerStati.get(0));
+        System.out.println(customerStati.get(0).getStatus());
+
         assertEquals(status1, customerStati.get(0).getStatus());
         assertEquals(status2, customerStati.get(1).getStatus());
 
         for(Bestellung order : customerStati) {
             System.out.println("Found " + order);
+        }
+
+        System.out.println("\n--------findAllCustomersWithOrderStatus---------");
+        List<Kunde> customers = kundeRepository.findAllCustomersWithOrderStatus(status1);
+        assertEquals(1, customers.size());
+
+        System.out.println(customers.get(0));
+        System.out.println(customers.get(0).getVorname());
+
+        assertEquals(vorname, customers.get(0).getVorname());
+        assertEquals(nachname, customers.get(0).getNachname());
+        assertEquals(telnummer, customers.get(0).getTelnummer());
+
+        for(Kunde customer : customers) {
+            System.out.println("Found " + customer);
         }
 
     }

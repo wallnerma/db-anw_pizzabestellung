@@ -46,9 +46,6 @@ public abstract class Repository<T>
         return query.getResultList();
     }
 
-
-
-
     public void printAll (String primaryKey)
     {
         List<T> entities = findAll(primaryKey);

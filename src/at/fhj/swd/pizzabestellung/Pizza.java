@@ -9,7 +9,7 @@ import java.util.Collection;
 @NamedQueries({
 
         @NamedQuery(name="Pizza.findAllPizzasFromOrderId",
-                query = "SELECT p.name " +
+                query = "SELECT p " +
                         "FROM Pizza p " +
                         "JOIN  Bestellung b " +
                         "WHERE b.id = :id")

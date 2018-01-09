@@ -38,6 +38,24 @@ public class KundeRepository extends at.fhj.swd.persistence.Repository<Kunde>
         return query.getResultList();
     }
 
+    public List<Kunde> findAllCustomersWithAdress(String strasse, int hausnummer) {
+        TypedQuery<Kunde> query = entityManager.createNamedQuery (
+                "Kunde.findAllCustomersWithAdress"
+                ,Kunde.class );
+        query.setParameter("strasse", strasse);
+        query.setParameter("hausnummer", hausnummer);
+
+        return query.getResultList();
+    }
+
+    public List<Kunde> findAllCustomersWithOrderStatus(String status) {
+        TypedQuery<Kunde> query = entityManager.createNamedQuery (
+                "Kunde.findAllCustomersWithOrderStatus"
+                ,Kunde.class );
+        query.setParameter("status", status);
+
+        return query.getResultList();
+    }
 
     void reset()
     {

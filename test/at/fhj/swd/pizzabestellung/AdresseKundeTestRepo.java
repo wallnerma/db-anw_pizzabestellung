@@ -125,6 +125,17 @@ public class AdresseKundeTestRepo {
             System.out.println("Found " + customer);
         }
 
+        System.out.println("\n--------findAllCustomersWithSameAdress---------");
+        List<Kunde> customersWithSameAdress = kundeRepository.findAllCustomersWithAdress(strasse, hausnummer);
+        assertEquals(1, customersWithSameAdress.size());
+
+        assertEquals(vorname, customersWithSameAdress.get(0).getVorname());
+        assertEquals(nachname, customersWithSameAdress.get(0).getNachname());
+
+        for(Kunde customer : customersWithSameAdress) {
+            System.out.println("Found " + customer);
+        }
+
     }
 
     @Test
