@@ -19,15 +19,6 @@ public class PizzaRepository extends at.fhj.swd.persistence.Repository<Pizza>
         return pizza;
     }
 
-    public List<Pizza> findAllPizzasFromOrderId(int id) {
-        TypedQuery<Pizza> query = entityManager.createNamedQuery (
-                "Pizza.findAllPizzasFromOrderId"
-                ,Pizza.class );
-        query.setParameter("id", id);
-
-        return query.getResultList();
-    }
-
     void reset()
     {
         Persistence.resetTable(schema, junctionTable);

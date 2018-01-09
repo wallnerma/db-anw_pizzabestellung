@@ -194,18 +194,6 @@ public class PizzaBestellungTestRepo {
             System.out.println("Found " + pizza);
     }
 
-/*    @Test
-    public void d_queries()
-    {
-
-        System.out.println("\n--------findAllPizzasFromOrderId---------");
-        List<Pizza> pizzasFromOrderId1 = pizzaRepository.findAllPizzasFromOrderId(id1);
-        assertEquals(1, pizzasFromOrderId1.size());
-
-        assertEquals(name1, pizzasFromOrderId1.get(0).getName());
-
-    }*/
-
     @Test
     public void e_remove ()
     {

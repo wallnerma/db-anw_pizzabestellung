@@ -4,19 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Entity
-
-@NamedQueries({
-
-        @NamedQuery(name="Pizza.findAllPizzasFromOrderId",
-                query = "SELECT p " +
-                        "FROM Pizza p " +
-                        "JOIN  Bestellung b " +
-                        "WHERE b.id = :id")
-
-})
-
-class Pizza
+@Entity class Pizza
 {
     @Id private int id;
     private String name;
