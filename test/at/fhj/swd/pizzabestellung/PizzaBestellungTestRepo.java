@@ -60,6 +60,17 @@ public class PizzaBestellungTestRepo {
     static Pizza pizza1;
     static Pizza pizza2;
 
+
+    static boolean permissionDenied (Exception exc)
+    {
+
+        System.out.println (exc.getMessage());
+
+        return    exc.getMessage().contains ("permission")
+                && exc.getMessage().contains ("denied");
+
+    }
+
     @BeforeClass
     public static void setup() {
         adresseRepository = new AdresseRepository();
