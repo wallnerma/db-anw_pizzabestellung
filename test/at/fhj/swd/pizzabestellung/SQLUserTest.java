@@ -75,12 +75,8 @@ public class SQLUserTest{
     public static void reset (EntityManager em)
     {
         Transaction.begin();
-
-        em.createQuery (
-                "DELETE FROM FullTimeEmployee fte WHERE fte.lastName = '"
-                        +  "'")
-                .executeUpdate();
-
+        kundeRepository.reset();
+        adresseRepository.reset();
         Transaction.commit();
     }
 

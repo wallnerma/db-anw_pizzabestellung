@@ -11,7 +11,6 @@ import java.util.Collection;
                 query = "SELECT b " +
                         "FROM Bestellung b " +
                         "JOIN Kunde k " +
-//                        "ON b.fk_kunde_nickname = k.nickname " +
                         "WHERE k.nickname = :nickname")
 
 })
