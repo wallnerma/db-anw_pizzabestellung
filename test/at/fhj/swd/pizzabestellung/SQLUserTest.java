@@ -80,4 +80,25 @@ public class SQLUserTest{
         Transaction.commit();
     }
 
+    public static void create (EntityManager em)
+    {
+        // Adresse --------------------------------------
+
+        Transaction.begin();
+
+        adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
+
+        kunde = kundeRepository.create(nickname, adresse, nachname,vorname,telnummer);
+
+        assertNotNull(adresse);
+        assertNotNull(kunde);
+
+        Transaction.commit();
+
+        if(verbose){
+            System.out.println("Persisted " + adresse);
+            System.out.println("Persisted " + kunde);
+        }
+    }
+
 }

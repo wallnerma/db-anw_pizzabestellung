@@ -13,10 +13,10 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @org.junit.FixMethodOrder( org.junit.runners.MethodSorters.NAME_ASCENDING)
-public class PizzaBestellungWriterTest extends SQLUserTest {
+public class PizzaBestellungReaderTest extends SQLUserTest {
 
-    final static String user     = "pizzabestellung_writer";
-    final static String password = "writer";
+    final static String user     = "pizzabestellung_reader";
+    final static String password = "reader";
 
     static void reset()
     {
@@ -26,6 +26,14 @@ public class PizzaBestellungWriterTest extends SQLUserTest {
         reset(em);
 
         teardown();
+    }
+
+    static void create()
+    {
+        Persistence.close();
+        EntityManager em = Persistence.connect();
+
+        create(em);
     }
 
     @BeforeClass public static void setup()
@@ -45,25 +53,29 @@ public class PizzaBestellungWriterTest extends SQLUserTest {
         Persistence.close ();
     }
 
-    @Test public void a_create () {
+    @Test public void a_createWithReader () {
+
         Transaction.begin();
 
-        adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
+        try
+        {
+            adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
+            Transaction.commit();
 
-        kunde = kundeRepository.create(nickname, adresse, nachname,vorname,telnummer);
-
-        assertNotNull(adresse);
-        assertNotNull(kunde);
-
-        Transaction.commit();
-
-        if(verbose){
-            System.out.println("Persisted " + adresse);
-            System.out.println("Persisted " + kunde);
+            fail();
+        } catch (Exception ex)
+        {
+            assertTrue(permissionDenied(ex));
+//            Transaction.rollback();
         }
     }
 
-    @Test public void b_modify()
+    @Test public void b_create()
+    {
+        create();
+    }
+
+    @Test public void c_modify()
     {
         // Adresse --------------------------------------
 
@@ -77,11 +89,20 @@ public class PizzaBestellungWriterTest extends SQLUserTest {
 
         adressen.get(0).setPlz(8522);
 
-        Transaction.commit();
+        try
+        {
+            Transaction.commit();
+
+            fail();
+        }
+        catch (Exception ex)
+        {
+            assertTrue(permissionDenied(ex));
+        }
+
     }
 
-    @Test
-    public void c_removeWithWriter (){
+    @Test public void d_removeWithWriter (){
         try
         {
             reset();
@@ -93,8 +114,7 @@ public class PizzaBestellungWriterTest extends SQLUserTest {
         }
     }
 
-    @Test
-    public void d_remove (){
+    @Test public void e_remove (){
         reset();
     }
 }

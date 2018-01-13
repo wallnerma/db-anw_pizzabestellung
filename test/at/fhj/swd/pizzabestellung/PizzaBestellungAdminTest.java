@@ -9,11 +9,6 @@ import  at.fhj.swd.spize.Transaction;
 import at.fhj.swd.persistence.Persistence;
 import  at.fhj.swd.spize.persistence.config.PersistenceUnitProperties;
 
-import  at.fhj.swd.pizzabestellung.AdresseRepository;
-import  at.fhj.swd.pizzabestellung.BestellungRepository;
-import  at.fhj.swd.pizzabestellung.KundeRepository;
-import  at.fhj.swd.pizzabestellung.PizzaRepository;
-
 import java.util.List;
 
 public class PizzaBestellungAdminTest extends SQLUserTest {
@@ -31,8 +26,6 @@ public class PizzaBestellungAdminTest extends SQLUserTest {
 
         adresseRepository = new AdresseRepository();
         kundeRepository = new KundeRepository();
-        bestellungRepository = new BestellungRepository();
-        pizzaRepository = new PizzaRepository();
     }
 
     @AfterClass public static void teardown()
