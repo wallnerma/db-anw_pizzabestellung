@@ -4,15 +4,16 @@ package at.fhj.swd.pizzabestellung;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import        org.junit.BeforeClass;
-import        org.junit.AfterClass;
-import        org.junit.Test;
+
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.junit.Test;
 
 import at.fhj.swd.spize.Transaction;
 
 import at.fhj.swd.persistence.Persistence;
 
-@org.junit.FixMethodOrder( org.junit.runners.MethodSorters.NAME_ASCENDING)
+@org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class KundeBestellungTestRepo {
 
     static final boolean verbose = true;
@@ -23,10 +24,10 @@ public class KundeBestellungTestRepo {
     static final int plz = 8605;
     static final String ort = "Kapfenberg";
 
-    static  final String    nickname        = "terminator";
-    static  final String    nachname        = "Miller";
-    static  final String    vorname         = "John";
-    static  final String    telnummer       = "06601234567";
+    static final String nickname = "terminator";
+    static final String nachname = "Miller";
+    static final String vorname = "John";
+    static final String telnummer = "06601234567";
 
     static final int id1 = 23;
     static final int id2 = 24;
@@ -56,14 +57,17 @@ public class KundeBestellungTestRepo {
     }
 
     @AfterClass
-    public static void teardown() { Persistence.close();}
+    public static void teardown() {
+        Persistence.close();
+    }
 
-    @Test public void a_create () {
+    @Test
+    public void a_create() {
         Transaction.begin();
 
-        adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
+        adresse = adresseRepository.create(id, strasse, hausnummer, plz, ort);
 
-        kunde = kundeRepository.create(nickname, adresse, nachname,vorname,telnummer);
+        kunde = kundeRepository.create(nickname, adresse, nachname, vorname, telnummer);
 
         bestellung1 = bestellungRepository.create(id1, status1);
         bestellung2 = bestellungRepository.create(id2, status2);
@@ -75,7 +79,7 @@ public class KundeBestellungTestRepo {
 
         Transaction.commit();
 
-        if(verbose){
+        if (verbose) {
             System.out.println("Persisted " + adresse);
             System.out.println("Persisted " + kunde);
             System.out.println("Persisted " + bestellung1);
@@ -83,8 +87,8 @@ public class KundeBestellungTestRepo {
         }
     }
 
-    @Test public void b_join()
-    {
+    @Test
+    public void b_join() {
         Transaction.begin();
 
         bestellung1.set(kunde);
@@ -93,29 +97,28 @@ public class KundeBestellungTestRepo {
         Transaction.commit();
     }
 
-    @Test public void c_verify ()
-    {
-        // Adresse --------------------------------------
+    @Test
+    public void c_verify() {
 
+        // Adresse --------------------------------------
         List<Adresse> adresses = adresseRepository.findAll("id");
-        assertEquals(1,adresses.size());
+        assertEquals(1, adresses.size());
 
         adresse = adresseRepository.find(id);
         assertNotNull(adresse);
 
         assertEquals(adresse, adresses.get(0));
 
-        assertEquals (kunde, adresse.getKunde() );
+        assertEquals(kunde, adresse.getKunde());
 
         if (verbose) for (Adresse ad : adresses)
             System.out.println("Found " + ad);
 
         // Kunde --------------------------------------
-
         List<Kunde> kunden = kundeRepository.findAll("nickname");
-        assertEquals(1,kunden.size());
+        assertEquals(1, kunden.size());
 
-        assertEquals (kunde, kunden.get(0));
+        assertEquals(kunde, kunden.get(0));
 
         if (verbose) for (Kunde customer : kunden)
             System.out.println("Found " + customer);
@@ -123,9 +126,8 @@ public class KundeBestellungTestRepo {
         assertEquals(adresse, kunde.getAdresse());
 
         // Bestellung --------------------------------------
-
         List<Bestellung> bestellungen = bestellungRepository.findAll("id");
-        assertEquals(2,bestellungen.size());
+        assertEquals(2, bestellungen.size());
 
         assertEquals(bestellung1.getKunde(), kunde);
         assertEquals(bestellung2.getKunde(), kunde);
@@ -133,7 +135,7 @@ public class KundeBestellungTestRepo {
         assertTrue(kunde.getBestellungen().contains(bestellung1));
         assertTrue(kunde.getBestellungen().contains(bestellung2));
 
-        assertNotNull (kunde);
+        assertNotNull(kunde);
         assertNotNull(bestellung1);
         assertNotNull(bestellung2);
 
@@ -161,7 +163,7 @@ public class KundeBestellungTestRepo {
         assertEquals(status1, customerStati.get(0).getStatus());
         assertEquals(status2, customerStati.get(1).getStatus());
 
-        for(Bestellung order : customerStati) {
+        for (Bestellung order : customerStati) {
             System.out.println("Found " + order);
         }
 
@@ -176,14 +178,14 @@ public class KundeBestellungTestRepo {
         assertEquals(nachname, customers.get(0).getNachname());
         assertEquals(telnummer, customers.get(0).getTelnummer());
 
-        for(Kunde customer : customers) {
+        for (Kunde customer : customers) {
             System.out.println("Found " + customer);
         }
 
     }
 
     @Test
-    public void e_remove (){
+    public void e_remove() {
 
         Transaction.begin();
         bestellungRepository.reset();
@@ -192,13 +194,13 @@ public class KundeBestellungTestRepo {
         Transaction.commit();
 
         List<Adresse> adresses = adresseRepository.findAll("id");
-        assertEquals(0,adresses.size());
+        assertEquals(0, adresses.size());
 
         List<Kunde> kunden = kundeRepository.findAll("nickname");
-        assertEquals(0,kunden.size());
+        assertEquals(0, kunden.size());
 
         List<Bestellung> bestellungen = bestellungRepository.findAll("id");
-        assertEquals(0,bestellungen.size());
+        assertEquals(0, bestellungen.size());
 
     }
 }

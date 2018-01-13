@@ -6,39 +6,39 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import static org.junit.Assert.*;
-import        org.junit.BeforeClass;
-import        org.junit.AfterClass;
-import        org.junit.Test;
+
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.junit.Test;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
-public class KundeAdresseTest
-{
+public class KundeAdresseTest {
 
     static EntityManagerFactory factory;
-    static EntityManager        manager;
-    static EntityTransaction    transaction;
+    static EntityManager manager;
+    static EntityTransaction transaction;
 
     static final String persistenceUnitName = "db_wallner16";
 
-    static  final String    nickname        = "terminator";
-    static  final Adresse   johns_adresse   = new Adresse(22, "Max Musterweg", 18, 8600, "Bruck/Mur");
-    static  final String    nachname        = "Miller";
-    static  final String    vorname         = "John";
-    static  final String    telnummer       = "06601234567";
+    static final String nickname = "terminator";
+    static final Adresse johns_adresse = new Adresse(22, "Max Musterweg", 18, 8600, "Bruck/Mur");
+    static final String nachname = "Miller";
+    static final String vorname = "John";
+    static final String telnummer = "06601234567";
 
 
-    @BeforeClass public static void setup()
-    {
-        factory = Persistence.createEntityManagerFactory( persistenceUnitName );
-        assertNotNull (factory);
-        manager  = factory.createEntityManager();
-        assertNotNull (manager);
+    @BeforeClass
+    public static void setup() {
+        factory = Persistence.createEntityManagerFactory(persistenceUnitName);
+        assertNotNull(factory);
+        manager = factory.createEntityManager();
+        assertNotNull(manager);
 
         transaction = manager.getTransaction();
     }
 
-    @AfterClass public static void teardown()
-    {
+    @AfterClass
+    public static void teardown() {
         if (manager == null)
             return;
 
@@ -47,31 +47,31 @@ public class KundeAdresseTest
     }
 
 
-    @Test public void create()
-    {
-        transaction.begin ();
+    @Test
+    public void create() {
+        transaction.begin();
 
-        Kunde john = new Kunde (nickname, johns_adresse, nachname, vorname, telnummer);
+        Kunde john = new Kunde(nickname, johns_adresse, nachname, vorname, telnummer);
 
         assertEquals(johns_adresse, john.getAdresse());
         assertEquals(john, johns_adresse.getKunde());
-        assertNotNull (john);
-        assertNotNull (johns_adresse);
-        manager.persist (johns_adresse);
-        manager.persist (john);
+        assertNotNull(john);
+        assertNotNull(johns_adresse);
+        manager.persist(johns_adresse);
+        manager.persist(john);
         transaction.commit();
 
         System.out.println("Created and Persisted " + john);
 
     }
 
-    @Test public void modify ()
-    {
-        Kunde john = manager.find (Kunde.class, nickname);
-        assertNotNull (john);
+    @Test
+    public void modify() {
+        Kunde john = manager.find(Kunde.class, nickname);
+        assertNotNull(john);
         System.out.println("Found " + john);
 
-        transaction.begin ();
+        transaction.begin();
         john.setNachname("Smith");
         john.setVorname("Will");
         john.setTelnummer("06649876321");
@@ -79,11 +79,11 @@ public class KundeAdresseTest
 
         //#if STRICT
         //start from scratch - this ensures that john is fetched from the DB :
-        teardown ();
-        setup    ();
+        teardown();
+        setup();
         //#endif
 
-        john = manager.find (Kunde.class, nickname);
+        john = manager.find(Kunde.class, nickname);
 
         assertEquals("Smith", john.getNachname());
         assertEquals("Will", john.getVorname());
@@ -92,22 +92,22 @@ public class KundeAdresseTest
         System.out.println("Updated " + john);
     }
 
-    @Test public void remove ()
-    {
+    @Test
+    public void remove() {
 
-        Kunde will = manager.find (Kunde.class, nickname);
-        assertNotNull (will);
+        Kunde will = manager.find(Kunde.class, nickname);
+        assertNotNull(will);
 
         Adresse wills_adresse = manager.find(Adresse.class, will.getAdresse().getId());
         assertNotNull(wills_adresse);
 
-        transaction.begin ();
-        manager.remove (will);
+        transaction.begin();
+        manager.remove(will);
         manager.remove(wills_adresse);
         transaction.commit();
 
         will = manager.find(Kunde.class, nickname);
-        assertNull (will);
+        assertNull(will);
         wills_adresse = manager.find(Adresse.class, 22);
         assertNull(wills_adresse);
 

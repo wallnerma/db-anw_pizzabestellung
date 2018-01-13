@@ -15,55 +15,51 @@ import java.util.Collection;
 
 })
 
-public class Bestellung
-{
-    @Id private int id;
+public class Bestellung {
+    @Id
+    private int id;
     private String status;
 
-    @ManyToOne @JoinColumn(name = "fk_kunde_nickname") private Kunde kunde;
-    @ManyToMany (mappedBy = "bestellungen") private Collection<Pizza> pizzen = new ArrayList<Pizza>();
+    @ManyToOne
+    @JoinColumn(name = "fk_kunde_nickname")
+    private Kunde kunde;
+    @ManyToMany(mappedBy = "bestellungen")
+    private Collection<Pizza> pizzen = new ArrayList<Pizza>();
 
-    protected Bestellung(){}
+    protected Bestellung() {
+    }
 
-    public Bestellung(int id, String status)
-    {
+    public Bestellung(int id, String status) {
         setId(id);
         setStatus(status);
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    private void setId(int id)
-    {
+    private void setId(int id) {
         this.id = id;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public Kunde getKunde()
-    {
+    public Kunde getKunde() {
         return kunde;
     }
 
-    public void set(Kunde kunde)
-    {
+    public void set(Kunde kunde) {
         this.kunde = kunde;
         kunde.add(this);
     }
 
-    void add(Pizza pizza)
-    {
+    void add(Pizza pizza) {
         pizzen.add(pizza);
     }
 

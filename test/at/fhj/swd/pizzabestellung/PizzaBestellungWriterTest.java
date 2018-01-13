@@ -1,25 +1,25 @@
 package at.fhj.swd.pizzabestellung;
 
 import static org.junit.Assert.*;
-import        org.junit.BeforeClass;
-import        org.junit.AfterClass;
-import        org.junit.Test;
 
-import  at.fhj.swd.spize.Transaction;
-import  at.fhj.swd.persistence.Persistence;
-import  at.fhj.swd.spize.persistence.config.PersistenceUnitProperties;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.junit.Test;
+
+import at.fhj.swd.spize.Transaction;
+import at.fhj.swd.persistence.Persistence;
+import at.fhj.swd.spize.persistence.config.PersistenceUnitProperties;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@org.junit.FixMethodOrder( org.junit.runners.MethodSorters.NAME_ASCENDING)
+@org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class PizzaBestellungWriterTest extends SQLUserTest {
 
-    final static String user     = "pizzabestellung_writer";
+    final static String user = "pizzabestellung_writer";
     final static String password = "writer";
 
-    static void reset()
-    {
+    static void reset() {
         Persistence.close();
         EntityManager em = Persistence.connect();
 
@@ -28,49 +28,50 @@ public class PizzaBestellungWriterTest extends SQLUserTest {
         teardown();
     }
 
-    @BeforeClass public static void setup()
-    {
+    @BeforeClass
+    public static void setup() {
 
-        System.out.println (
-                "Connecting to " + PersistenceUnitProperties.getUrl ());
+        System.out.println(
+                "Connecting to " + PersistenceUnitProperties.getUrl());
 
-        Persistence.connect (user, password);
+        Persistence.connect(user, password);
 
         adresseRepository = new AdresseRepository();
         kundeRepository = new KundeRepository();
     }
 
-    @AfterClass public static void teardown()
-    {
-        Persistence.close ();
+    @AfterClass
+    public static void teardown() {
+        Persistence.close();
     }
 
-    @Test public void a_create () {
+    @Test
+    public void a_create() {
         Transaction.begin();
 
-        adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
+        adresse = adresseRepository.create(id, strasse, hausnummer, plz, ort);
 
-        kunde = kundeRepository.create(nickname, adresse, nachname,vorname,telnummer);
+        kunde = kundeRepository.create(nickname, adresse, nachname, vorname, telnummer);
 
         assertNotNull(adresse);
         assertNotNull(kunde);
 
         Transaction.commit();
 
-        if(verbose){
+        if (verbose) {
             System.out.println("Persisted " + adresse);
             System.out.println("Persisted " + kunde);
         }
     }
 
-    @Test public void b_modify()
-    {
-        // Adresse --------------------------------------
+    @Test
+    public void b_modify() {
 
+        // Adresse --------------------------------------
         Transaction.begin();
 
         List<Adresse> adressen = adresseRepository.findAll("id");
-        assertEquals(1,adressen.size());
+        assertEquals(1, adressen.size());
 
         adresse = adresseRepository.find(id);
         assertNotNull(adresse);
@@ -81,20 +82,17 @@ public class PizzaBestellungWriterTest extends SQLUserTest {
     }
 
     @Test
-    public void c_removeWithWriter (){
-        try
-        {
+    public void c_removeWithWriter() {
+        try {
             reset();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             assertTrue(permissionDenied(ex));
             Transaction.rollback();
         }
     }
 
     @Test
-    public void d_remove (){
+    public void d_remove() {
         reset();
     }
 }

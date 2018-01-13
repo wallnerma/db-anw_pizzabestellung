@@ -6,23 +6,23 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import static org.junit.Assert.*;
-import        org.junit.BeforeClass;
-import        org.junit.AfterClass;
-import        org.junit.Test;
 
-public class PizzaBestellungTest
-{
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.junit.Test;
+
+public class PizzaBestellungTest {
     static EntityManagerFactory factory;
-    static EntityManager        manager;
-    static EntityTransaction    transaction;
+    static EntityManager manager;
+    static EntityTransaction transaction;
 
     static final String persistenceUnitName = "db_wallner16";
 
-    static  final String    nickname        = "terminator";
-    static  final Adresse   johns_adresse   = new Adresse(22, "Max Musterweg", 18, 8600, "Bruck/Mur");
-    static  final String    nachname        = "Miller";
-    static  final String    vorname         = "John";
-    static  final String    telnummer       = "06601234567";
+    static final String nickname = "terminator";
+    static final Adresse johns_adresse = new Adresse(22, "Max Musterweg", 18, 8600, "Bruck/Mur");
+    static final String nachname = "Miller";
+    static final String vorname = "John";
+    static final String telnummer = "06601234567";
 
     static final int id1 = 23;
     static final int id2 = 24;
@@ -39,18 +39,18 @@ public class PizzaBestellungTest
     static private String groesse2 = "L";
     static private float einzelpreis2 = 20.25f;
 
-    @BeforeClass public static void setup()
-    {
-        factory = Persistence.createEntityManagerFactory( persistenceUnitName );
-        assertNotNull (factory);
-        manager  = factory.createEntityManager();
-        assertNotNull (manager);
+    @BeforeClass
+    public static void setup() {
+        factory = Persistence.createEntityManagerFactory(persistenceUnitName);
+        assertNotNull(factory);
+        manager = factory.createEntityManager();
+        assertNotNull(manager);
 
         transaction = manager.getTransaction();
     }
 
-    @AfterClass public static void teardown()
-    {
+    @AfterClass
+    public static void teardown() {
         if (manager == null)
             return;
 
@@ -58,16 +58,16 @@ public class PizzaBestellungTest
         factory.close();
     }
 
-    @Test public void create()
-    {
-        transaction.begin ();
+    @Test
+    public void create() {
+        transaction.begin();
 
-        Kunde john = new Kunde (nickname, johns_adresse, nachname, vorname, telnummer);
+        Kunde john = new Kunde(nickname, johns_adresse, nachname, vorname, telnummer);
         Bestellung order1 = new Bestellung(id1, status1);
         Bestellung order2 = new Bestellung(id2, status2);
 
-        Pizza salami = new Pizza(idPizza1, name1, groesse1,einzelpreis1);
-        Pizza tonno = new Pizza(idPizza2, name2, groesse2,einzelpreis2);
+        Pizza salami = new Pizza(idPizza1, name1, groesse1, einzelpreis1);
+        Pizza tonno = new Pizza(idPizza2, name2, groesse2, einzelpreis2);
 
 
         order1.set(john);
@@ -76,17 +76,17 @@ public class PizzaBestellungTest
         salami.add(order1);
         tonno.add(order2);
 
-        manager.persist (johns_adresse);
-        manager.persist (john);
-        manager.persist (order1);
-        manager.persist (order2);
+        manager.persist(johns_adresse);
+        manager.persist(john);
+        manager.persist(order1);
+        manager.persist(order2);
         manager.persist(salami);
         manager.persist(tonno);
 
         transaction.commit();
 
-        teardown ();
-        setup    ();
+        teardown();
+        setup();
 
         john = manager.find(Kunde.class, nickname);
         order1 = manager.find(Bestellung.class, id1);
@@ -112,7 +112,7 @@ public class PizzaBestellungTest
         assertTrue(john.getBestellungen().contains(order1));
         assertTrue(john.getBestellungen().contains(order2));
 
-        assertNotNull (john);
+        assertNotNull(john);
         assertNotNull(order1);
         assertNotNull(order2);
 
@@ -120,13 +120,13 @@ public class PizzaBestellungTest
 
     }
 
-    @Test public void modify ()
-    {
-        Kunde john = manager.find (Kunde.class, nickname);
-        assertNotNull (john);
+    @Test
+    public void modify() {
+        Kunde john = manager.find(Kunde.class, nickname);
+        assertNotNull(john);
         System.out.println("Found " + john);
 
-        transaction.begin ();
+        transaction.begin();
         john.setNachname("Smith");
         john.setVorname("Will");
         john.setTelnummer("06649876321");
@@ -134,11 +134,11 @@ public class PizzaBestellungTest
 
         //#if STRICT
         //start from scratch - this ensures that john is fetched from the DB :
-        teardown ();
-        setup    ();
+        teardown();
+        setup();
         //#endif
 
-        john = manager.find (Kunde.class, nickname);
+        john = manager.find(Kunde.class, nickname);
 
         assertEquals("Smith", john.getNachname());
         assertEquals("Will", john.getVorname());
@@ -147,29 +147,26 @@ public class PizzaBestellungTest
         System.out.println("Updated " + john);
     }
 
-    @Test public void remove ()
-    {
+    @Test
+    public void remove() {
 
-        Kunde john = manager.find (Kunde.class, nickname);
-        assertNotNull (john);
+        Kunde john = manager.find(Kunde.class, nickname);
+        assertNotNull(john);
 
         Adresse johns_adresse = manager.find(Adresse.class, john.getAdresse().getId());
         assertNotNull(johns_adresse);
 
-        transaction.begin ();
+        transaction.begin();
 
-        for (Bestellung order : john.getBestellungen())
-        {
-            for(Pizza pizza : order.getPizzen())
-            {
+        for (Bestellung order : john.getBestellungen()) {
+            for (Pizza pizza : order.getPizzen()) {
                 manager.remove(pizza);
             }
-            manager.remove (order);
+            manager.remove(order);
         }
 
 
-
-        manager.remove (john);
+        manager.remove(john);
         manager.remove(johns_adresse);
         transaction.commit();
 

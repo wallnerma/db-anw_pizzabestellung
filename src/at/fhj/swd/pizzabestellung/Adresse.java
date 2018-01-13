@@ -9,31 +9,28 @@ import javax.persistence.*;
                 query = "SELECT a " +
                         "FROM Adresse a"),
 
-        @NamedQuery(name="Adresse.findSamePlz",
+        @NamedQuery(name = "Adresse.findSamePlz",
                 query = "SELECT a  " +
                         "FROM Adresse a " +
-                        "WHERE a.plz = :plz " )
+                        "WHERE a.plz = :plz ")
 })
 
-public class Adresse
-{
+public class Adresse {
 
-    @Id private int id;
+    @Id
+    private int id;
     private String strasse;
     private int hausnummer;
     private int plz;
     private String ort;
 
-    @OneToOne (mappedBy = "adresse") private Kunde kunde;
+    @OneToOne(mappedBy = "adresse")
+    private Kunde kunde;
 
+    protected Adresse() {
+    }
 
-
-
-
-    protected Adresse(){}
-
-    public Adresse(int id, String strasse, int hausnummer, int plz, String ort)
-    {
+    public Adresse(int id, String strasse, int hausnummer, int plz, String ort) {
         setId(id);
         setStrasse(strasse);
         setHausnummer(hausnummer);
@@ -42,63 +39,51 @@ public class Adresse
         setKunde(kunde);
     }
 
-    private void setId(int id)
-    {
+    private void setId(int id) {
         this.id = id;
     }
 
-    public void setStrasse(String strasse)
-    {
+    public void setStrasse(String strasse) {
         this.strasse = strasse;
     }
 
-    public void setHausnummer(int hausnummer)
-    {
+    public void setHausnummer(int hausnummer) {
         this.hausnummer = hausnummer;
     }
 
-    public void setPlz(int plz)
-    {
+    public void setPlz(int plz) {
         this.plz = plz;
     }
 
-    public void setOrt(String ort)
-    {
+    public void setOrt(String ort) {
         this.ort = ort;
     }
 
-    void setKunde(Kunde kunde)
-    {
+    void setKunde(Kunde kunde) {
         this.kunde = kunde;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public String getStrasse()
-    {
+    public String getStrasse() {
         return strasse;
     }
 
-    public int getHausnummer()
-    {
+    public int getHausnummer() {
         return hausnummer;
     }
 
-    public int getPlz()
-    {
+    public int getPlz() {
         return plz;
     }
 
-    public String getOrt()
-    {
+    public String getOrt() {
         return ort;
     }
 
-    public Kunde getKunde()
-    {
+    public Kunde getKunde() {
         return kunde;
     }
 
@@ -116,7 +101,5 @@ public class Adresse
     public int hashCode() {
         return id;
     }
-
-    //TODO toString()
 
 }

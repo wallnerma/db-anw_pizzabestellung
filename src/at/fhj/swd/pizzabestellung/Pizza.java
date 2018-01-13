@@ -4,17 +4,21 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Entity class Pizza
-{
-    @Id private int id;
+@Entity
+class Pizza {
+    @Id
+    private int id;
     private String name;
     private String groesse;
     private float einzelpreis;
 
-    @ManyToMany @JoinTable ( name = "bestellungpizza", joinColumns = @JoinColumn(name = "fk_pizza_id"),
-            inverseJoinColumns = @JoinColumn(name = "fk_bestellung_id")) private Collection<Bestellung> bestellungen = new ArrayList<Bestellung>();
+    @ManyToMany
+    @JoinTable(name = "bestellungpizza", joinColumns = @JoinColumn(name = "fk_pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "fk_bestellung_id"))
+    private Collection<Bestellung> bestellungen = new ArrayList<Bestellung>();
 
-    protected Pizza(){}
+    protected Pizza() {
+    }
 
     public Pizza(int id, String name, String groesse, float einzelpreis) {
         setId(id);
@@ -78,8 +82,7 @@ import java.util.Collection;
         return id;
     }
 
-    public void add (Bestellung bestellung)
-    {
+    public void add(Bestellung bestellung) {
         bestellungen.add(bestellung);
         bestellung.add(this);
     }

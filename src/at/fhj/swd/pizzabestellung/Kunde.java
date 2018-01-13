@@ -8,48 +8,51 @@ import java.util.Collection;
 
 @NamedQueries({
 
-        @NamedQuery(name="Kunde.findTelNumber",
+        @NamedQuery(name = "Kunde.findTelNumber",
                 query = "SELECT k.telnummer " +
                         "FROM Kunde k " +
                         "WHERE  k.vorname = :firstName " +
                         "AND  k.nachname  = :lastName"),
 
-        @NamedQuery(name="Kunde.findAllCustomersWithAdress",
+        @NamedQuery(name = "Kunde.findAllCustomersWithAdress",
                 query = "SELECT k " +
                         "FROM Kunde k " +
                         "JOIN  Adresse a " +
                         "WHERE a.strasse = :strasse " +
                         "AND a.hausnummer = :hausnummer"),
 
-        @NamedQuery(name="Kunde.findAllCustomersWithSamePlz",
+        @NamedQuery(name = "Kunde.findAllCustomersWithSamePlz",
                 query = "SELECT k " +
                         "FROM Kunde k " +
                         "JOIN  Adresse a " +
                         "WHERE a.plz = :plz"),
 
-        @NamedQuery(name="Kunde.findAllCustomersWithOrderStatus",
-        query = "SELECT k " +
-                "FROM Kunde k " +
-                "JOIN  Bestellung b " +
-                "WHERE b.status = :status")
+        @NamedQuery(name = "Kunde.findAllCustomersWithOrderStatus",
+                query = "SELECT k " +
+                        "FROM Kunde k " +
+                        "JOIN  Bestellung b " +
+                        "WHERE b.status = :status")
 
 })
 
-public class Kunde
-{
+public class Kunde {
 
-    @Id private String nickname;
+    @Id
+    private String nickname;
     private String nachname;
     private String vorname;
     private String telnummer;
 
-    @OneToOne @JoinColumn(name = "fk_adresse_id") private Adresse adresse;
-    @OneToMany (mappedBy = "kunde") private Collection<Bestellung> bestellungen = new ArrayList<Bestellung>();
+    @OneToOne
+    @JoinColumn(name = "fk_adresse_id")
+    private Adresse adresse;
+    @OneToMany(mappedBy = "kunde")
+    private Collection<Bestellung> bestellungen = new ArrayList<Bestellung>();
 
-    protected Kunde() {}
+    protected Kunde() {
+    }
 
-    public Kunde(String nickname, Adresse adresse, String nachname, String vorname, String telnummer)
-    {
+    public Kunde(String nickname, Adresse adresse, String nachname, String vorname, String telnummer) {
         setNickname(nickname);
         setAdresse(adresse);
         setNachname(nachname);
@@ -57,29 +60,24 @@ public class Kunde
         setTelnummer(telnummer);
     }
 
-    private void setNickname(String nickname)
-    {
+    private void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
-    public void setAdresse(Adresse adresse)
-    {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
         adresse.setKunde(this);
     }
 
-    public void setNachname(String nachname)
-    {
+    public void setNachname(String nachname) {
         this.nachname = nachname;
     }
 
-    public void setVorname(String vorname)
-    {
+    public void setVorname(String vorname) {
         this.vorname = vorname;
     }
 
-    public void setTelnummer(String telnummer)
-    {
+    public void setTelnummer(String telnummer) {
         this.telnummer = telnummer;
     }
 
@@ -87,28 +85,23 @@ public class Kunde
         this.bestellungen = bestellungen;
     }
 
-    public String getNickname()
-    {
+    public String getNickname() {
         return nickname;
     }
 
-    public Adresse getAdresse()
-    {
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public String getNachname()
-    {
+    public String getNachname() {
         return nachname;
     }
 
-    public String getVorname()
-    {
+    public String getVorname() {
         return vorname;
     }
 
-    public String getTelnummer()
-    {
+    public String getTelnummer() {
         return telnummer;
     }
 
@@ -116,8 +109,7 @@ public class Kunde
         return bestellungen;
     }
 
-    void add(Bestellung bestellung)
-    {
+    void add(Bestellung bestellung) {
         bestellungen.add(bestellung);
     }
 
@@ -135,7 +127,5 @@ public class Kunde
     public int hashCode() {
         return nickname.hashCode();
     }
-
-    //TODO toString()
 
 }

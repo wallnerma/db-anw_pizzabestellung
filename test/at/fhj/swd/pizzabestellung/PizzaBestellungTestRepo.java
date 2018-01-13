@@ -4,15 +4,16 @@ package at.fhj.swd.pizzabestellung;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import        org.junit.BeforeClass;
-import        org.junit.AfterClass;
-import        org.junit.Test;
+
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.junit.Test;
 
 import at.fhj.swd.spize.Transaction;
 
 import at.fhj.swd.persistence.Persistence;
 
-@org.junit.FixMethodOrder( org.junit.runners.MethodSorters.NAME_ASCENDING)
+@org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class PizzaBestellungTestRepo {
 
     static final boolean verbose = true;
@@ -25,10 +26,10 @@ public class PizzaBestellungTestRepo {
     static final String ort = "Bruck/Mur";
 
     // Kunde
-    static  final String nickname = "terminator";
-    static  final String nachname = "Miller";
-    static  final String vorname  = "John";
-    static  final String telnummer = "06601234567";
+    static final String nickname = "terminator";
+    static final String nachname = "Miller";
+    static final String vorname = "John";
+    static final String telnummer = "06601234567";
 
     // Bestellungen
     static final int id1 = 23;
@@ -61,13 +62,12 @@ public class PizzaBestellungTestRepo {
     static Pizza pizza2;
 
 
-    static boolean permissionDenied (Exception exc)
-    {
+    static boolean permissionDenied(Exception exc) {
 
-        System.out.println (exc.getMessage());
+        System.out.println(exc.getMessage());
 
-        return    exc.getMessage().contains ("permission")
-                && exc.getMessage().contains ("denied");
+        return exc.getMessage().contains("permission")
+                && exc.getMessage().contains("denied");
 
     }
 
@@ -87,14 +87,17 @@ public class PizzaBestellungTestRepo {
     }
 
     @AfterClass
-    public static void teardown() { Persistence.close();}
+    public static void teardown() {
+        Persistence.close();
+    }
 
-    @Test public void a_create () {
+    @Test
+    public void a_create() {
         Transaction.begin();
 
-        adresse = adresseRepository.create(id,strasse,hausnummer,plz,ort);
+        adresse = adresseRepository.create(id, strasse, hausnummer, plz, ort);
 
-        kunde = kundeRepository.create(nickname, adresse, nachname,vorname,telnummer);
+        kunde = kundeRepository.create(nickname, adresse, nachname, vorname, telnummer);
 
         bestellung1 = bestellungRepository.create(id1, status1);
         bestellung2 = bestellungRepository.create(id2, status2);
@@ -111,7 +114,7 @@ public class PizzaBestellungTestRepo {
 
         Transaction.commit();
 
-        if(verbose){
+        if (verbose) {
             System.out.println("Persisted " + adresse);
             System.out.println("Persisted " + kunde);
             System.out.println("Persisted " + bestellung1);
@@ -121,8 +124,8 @@ public class PizzaBestellungTestRepo {
         }
     }
 
-    @Test public void b_join()
-    {
+    @Test
+    public void b_join() {
         Transaction.begin();
 
         bestellung1.set(kunde);
@@ -134,30 +137,30 @@ public class PizzaBestellungTestRepo {
         Transaction.commit();
     }
 
-    @Test public void c_verify ()
-    {
+    @Test
+    public void c_verify() {
         if (verbose) bestellungRepository.printAll("id");
         if (verbose) pizzaRepository.printAll("id");
 
         // Adressen ----------------------------------------
         List<Adresse> adresses = adresseRepository.findAll("id");
-        assertEquals(1,adresses.size());
+        assertEquals(1, adresses.size());
 
         adresse = adresseRepository.find(id);
         assertNotNull(adresse);
 
         assertEquals(adresse, adresses.get(0));
 
-        assertEquals (kunde, adresse.getKunde() );
+        assertEquals(kunde, adresse.getKunde());
 
         if (verbose) for (Adresse ad : adresses)
             System.out.println("Found " + ad);
 
         // Kunden -------------------------------------------
         List<Kunde> kunden = kundeRepository.findAll("nickname");
-        assertEquals(1,kunden.size());
+        assertEquals(1, kunden.size());
 
-        assertEquals (kunde, kunden.get(0));
+        assertEquals(kunde, kunden.get(0));
 
         if (verbose) for (Kunde customer : kunden)
             System.out.println("Found " + customer);
@@ -166,7 +169,7 @@ public class PizzaBestellungTestRepo {
 
         // Bestellungen --------------------------------------
         List<Bestellung> bestellungen = bestellungRepository.findAll("id");
-        assertEquals(2,bestellungen.size());
+        assertEquals(2, bestellungen.size());
         assertEquals(1, bestellung1.getPizzen().size());
         assertEquals(1, bestellung2.getPizzen().size());
 
@@ -182,7 +185,7 @@ public class PizzaBestellungTestRepo {
         assertTrue(bestellung1.getPizzen().contains(pizza1));
         assertTrue(bestellung2.getPizzen().contains(pizza2));
 
-        assertNotNull (kunde);
+        assertNotNull(kunde);
         assertNotNull(bestellung1);
         assertNotNull(bestellung2);
 
@@ -206,8 +209,7 @@ public class PizzaBestellungTestRepo {
     }
 
     @Test
-    public void e_remove ()
-    {
+    public void e_remove() {
 
         Transaction.begin();
         pizzaRepository.reset();
@@ -217,13 +219,13 @@ public class PizzaBestellungTestRepo {
         Transaction.commit();
 
         List<Adresse> adresses = adresseRepository.findAll("id");
-        assertEquals(0,adresses.size());
+        assertEquals(0, adresses.size());
 
         List<Kunde> kunden = kundeRepository.findAll("nickname");
-        assertEquals(0,kunden.size());
+        assertEquals(0, kunden.size());
 
         List<Bestellung> bestellungen = bestellungRepository.findAll("id");
-        assertEquals(0,bestellungen.size());
+        assertEquals(0, bestellungen.size());
 
         List<Pizza> pizzen = pizzaRepository.findAll("id");
         assertEquals(0, pizzen.size());

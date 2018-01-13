@@ -6,13 +6,13 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class BestellungRepository extends at.fhj.swd.persistence.Repository<Bestellung>
-        implements at.fhj.swd.persistence.IRepository<Bestellung>
-{
+        implements at.fhj.swd.persistence.IRepository<Bestellung> {
 
-    public BestellungRepository() {super(Bestellung.class);}
+    public BestellungRepository() {
+        super(Bestellung.class);
+    }
 
-    public Bestellung create (int id, String status)
-    {
+    public Bestellung create(int id, String status) {
         Bestellung bestellung = new Bestellung(id, status);
         entityManager.persist(bestellung);
 
@@ -20,16 +20,15 @@ public class BestellungRepository extends at.fhj.swd.persistence.Repository<Best
     }
 
     public List<Bestellung> findStatusOfCustomer(String nickname) {
-        TypedQuery<Bestellung> query = entityManager.createNamedQuery (
+        TypedQuery<Bestellung> query = entityManager.createNamedQuery(
                 "Bestellung.findStatusOfCustomer"
-                ,Bestellung.class );
+                , Bestellung.class);
         query.setParameter("nickname", nickname);
 
         return query.getResultList();
     }
 
-    void reset()
-    {
+    void reset() {
         Persistence.resetTable(schema, junctionTable);
         Persistence.resetTable(schema, table);
     }
