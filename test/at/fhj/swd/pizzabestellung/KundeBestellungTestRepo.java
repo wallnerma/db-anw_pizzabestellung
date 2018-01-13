@@ -146,19 +146,17 @@ public class KundeBestellungTestRepo {
     @Test
     public void d_queries() {
 
-        System.out.println("\n--------findTelNumber---------");
         String telNumber = kundeRepository.findTelNumber(vorname, nachname);
 
         assertEquals(telnummer, telNumber);
 
         System.out.println("Found " + telNumber + "\n");
 
-        System.out.println("\n--------findStatusOfCustomer---------");
         List<Bestellung> customerStati = bestellungRepository.findStatusOfCustomer(nickname);
         assertEquals(2, customerStati.size());
 
-        System.out.println(customerStati.get(0));
-        System.out.println(customerStati.get(0).getStatus());
+        System.out.println("Found " + customerStati.get(0));
+        System.out.println("Found " + customerStati.get(0).getStatus());
 
         assertEquals(status1, customerStati.get(0).getStatus());
         assertEquals(status2, customerStati.get(1).getStatus());
@@ -167,12 +165,11 @@ public class KundeBestellungTestRepo {
             System.out.println("Found " + order);
         }
 
-        System.out.println("\n--------findAllCustomersWithOrderStatus---------");
         List<Kunde> customers = kundeRepository.findAllCustomersWithOrderStatus(status1);
         assertEquals(1, customers.size());
 
-        System.out.println(customers.get(0));
-        System.out.println(customers.get(0).getVorname());
+        System.out.println("Found " + customers.get(0));
+        System.out.println("Found " + customers.get(0).getVorname());
 
         assertEquals(vorname, customers.get(0).getVorname());
         assertEquals(nachname, customers.get(0).getNachname());

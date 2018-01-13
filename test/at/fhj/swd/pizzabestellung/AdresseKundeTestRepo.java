@@ -101,7 +101,7 @@ public class AdresseKundeTestRepo {
 
     @Test
     public void c_queries() {
-        System.out.println("\n--------findAllAdressen---------");
+
         List<Adresse> adressen = adresseRepository.findAllAdressen();
         assertEquals(1, adressen.size());
 
@@ -109,7 +109,6 @@ public class AdresseKundeTestRepo {
             System.out.println("Found " + addr);
         }
 
-        System.out.println("\n--------findSamePlz---------");
         List<Adresse> samePlz = adresseRepository.findSamePlz(plz);
         assertEquals(1, samePlz.size());
 
@@ -117,7 +116,6 @@ public class AdresseKundeTestRepo {
             System.out.println("Found " + addr);
         }
 
-        System.out.println("\n--------findAllCustomersWithSamePlz---------");
         List<Kunde> customersWithSamePlz = kundeRepository.findAllCustomersWithSamePlz(plz);
         assertEquals(1, customersWithSamePlz.size());
 
@@ -128,7 +126,6 @@ public class AdresseKundeTestRepo {
             System.out.println("Found " + customer);
         }
 
-        System.out.println("\n--------findAllCustomersWithSameAdress---------");
         List<Kunde> customersWithSameAdress = kundeRepository.findAllCustomersWithAdress(strasse, hausnummer);
         assertEquals(1, customersWithSameAdress.size());
 

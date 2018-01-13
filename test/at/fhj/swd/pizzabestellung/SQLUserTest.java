@@ -7,7 +7,6 @@ import at.fhj.swd.spize.Transaction;
 
 import javax.persistence.EntityManager;
 
-import at.fhj.swd.persistence.Persistence;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class SQLUserTest {
@@ -27,35 +26,12 @@ public class SQLUserTest {
     static final String vorname = "John";
     static final String telnummer = "06601234567";
 
-    // Bestellungen
-    static final int id1 = 23;
-    static final int id2 = 24;
-    static final String status1 = "in Arbeit";
-    static final String status2 = "aufgenommen";
-
-    // Pizza 1
-    static private int idPizza1 = 102;
-    static private String name1 = "Salami";
-    static private String groesse1 = "L";
-    static private float einzelpreis1 = 27.20f;
-
-    // Pizza 2
-    static private int idPizza2 = 145;
-    static private String name2 = "Tonno";
-    static private String groesse2 = "L";
-    static private float einzelpreis2 = 20.25f;
 
     static AdresseRepository adresseRepository;
     static KundeRepository kundeRepository;
-    static BestellungRepository bestellungRepository;
-    static PizzaRepository pizzaRepository;
 
     static Adresse adresse;
     static Kunde kunde;
-    static Bestellung bestellung1;
-    static Bestellung bestellung2;
-    static Pizza pizza1;
-    static Pizza pizza2;
 
 
     static boolean permissionDenied(Exception exc) {
@@ -75,7 +51,6 @@ public class SQLUserTest {
     }
 
     public static void create(EntityManager em) {
-        // Adresse --------------------------------------
 
         Transaction.begin();
         adresse = adresseRepository.create(id, strasse, hausnummer, plz, ort);
